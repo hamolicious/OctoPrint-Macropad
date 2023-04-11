@@ -1,0 +1,15 @@
+[Unit]
+Description=My custom service
+Requires=network.target
+
+[Service]
+Type=idle
+
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/Documents/macro-pad/main.py
+
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
