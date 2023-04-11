@@ -1,21 +1,15 @@
-from .base import MacroPadButtonBase
-from gpiozero import Button
+from .base import MacroActionBase
 import logging
 import requests
 from common_commands.send_gcode_commands import send_gcode_commands
 
 
-class OffButton(MacroPadButtonBase):
-	def __init__(self, gpio_number: int, name: str, api_key) -> None:
-		super().__init__(gpio_number, name, api_key)
+class OffOnEnd(MacroActionBase):
+	def __init__(self) -> None:
+		super().__init__()
 
 		self.url = 'http://192.168.0.75/api/settings'
 		self.state = False
-		self.headers = {
-			'X-Api-Key': self.api_key,
-			'Content-Type': 'application/json',
-		}
-		self.button = Button(gpio_number)
 
 	def init(self) -> None:
 		logging.info('Initiating')
@@ -29,7 +23,7 @@ class OffButton(MacroPadButtonBase):
 
 		logging.info(f'Current State: {self.state}')
 
-	def set_state(self) -> None:
+	def activate(self) -> None:
 		state = not self.state
 		logging.info(f'Setting State: {state}')
 

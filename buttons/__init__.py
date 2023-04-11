@@ -1,18 +1,26 @@
-from .light_bar import LightBarButton
-from .preheat import PreHeatButton
-from .off import OffButton
-from .resume import ResumeButton
+from gpiozero import Button
+import actions
 
-with open('/home/pi/Documents/macro-pad/api.key', 'r') as f:
-	api_key = f.read().splitlines()[0]
-
-buttons = [
-	LightBarButton(4, 'Lamp', api_key),
-	PreHeatButton(17, 'Preheat', api_key),
-	OffButton(27, 'Off', api_key),
-	ResumeButton(22, 'Resume', api_key),
-]
-
-for b in buttons:
-	b.init()
+buttons = {
+	'resume_and_home': {
+		'button': Button(22),
+		'on_click': actions.Resume(),
+		'on_hold': None,
+	},
+    'preheat_and_x': {
+		'button': Button(17),
+		'on_click': actions.PreHeat(),
+		'on_hold': None,
+	},
+    'light_and_x': {
+		'button': Button(4),
+		'on_click': actions.LightBar(),
+		'on_hold': None,
+	},
+    'off_on_end_and_x': {
+		'button': Button(27),
+		'on_click': actions.OffOnEnd(),
+		'on_hold': None,
+	},
+}
 

@@ -1,12 +1,11 @@
-from .base import MacroPadButtonBase
-from gpiozero import Button
+from .base import MacroActionBase
 import logging
 import requests
 
 
-class LightBarButton(MacroPadButtonBase):
-	def __init__(self, gpio_number: int, name: str, api_key) -> None:
-		super().__init__(gpio_number, name, api_key)
+class LightBar(MacroActionBase):
+	def __init__(self) -> None:
+		super().__init__()
 
 		self.url = 'http://192.168.0.75/api/plugin/gpiocontrol'
 		self.toggle = ['turnGpioOn', 'turnGpioOff']
@@ -14,11 +13,6 @@ class LightBarButton(MacroPadButtonBase):
 			'id': 0,
 			'command': 'turnGpioOn',
 		}
-		self.headers = {
-			'X-Api-Key': self.api_key,
-			'Content-Type': 'application/json',
-		}
-		self.button = Button(gpio_number)
 
 	def init(self) -> None:
 		logging.info('Initiating')
@@ -33,7 +27,7 @@ class LightBarButton(MacroPadButtonBase):
 
 		logging.info(f'Current State: {data}')
 
-	def set_state(self) -> None:
+	def activate(self) -> None:
 		state = 'ON' if self.body.get('command') == 'turnGpioOn' else 'OFF'
 		logging.info(f'Setting State: {state}')
 
