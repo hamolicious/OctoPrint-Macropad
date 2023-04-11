@@ -40,7 +40,6 @@ while True:
 				held_for = abs(time() - b.get('pressed_at'))
 				b['pressed_at'] = None
 
-				print(b, held_for)
 				if held_for > constants.HELD_FOR_COUNTS_AS_HOLD:
 					if b.get('on_hold') is not None:
 						common_commands.send_gcode_commands('M300 P50')
