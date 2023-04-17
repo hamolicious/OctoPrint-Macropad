@@ -7,7 +7,7 @@ class LightBar(MacroActionBase):
 	def __init__(self) -> None:
 		super().__init__()
 
-		self.url = 'http://192.168.0.75/api/plugin/gpiocontrol'
+		self.url = self.pi_host + '/api/plugin/gpiocontrol'
 		self.toggle = ['turnGpioOn', 'turnGpioOff']
 		self.body = {
 			'id': 0,

@@ -11,6 +11,7 @@ class MacroActionBase:
 			'X-Api-Key': self.api_key,
 			'Content-Type': 'application/json',
 		}
+		self.pi_host = constants.PI_HOSTNAME
 
 	def init(self) -> None:
 		...

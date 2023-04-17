@@ -8,7 +8,7 @@ class Purge(MacroActionBase):
 	def __init__(self) -> None:
 		super().__init__()
 
-		self.url = 'http://192.168.0.75/api/printer/tool'
+		self.url = self.pi_host + '/api/printer/tool'
 		self.body = {}
 
 	def activate(self) -> None:

@@ -7,7 +7,7 @@ class Resume(MacroActionBase):
 	def __init__(self) -> None:
 		super().__init__()
 
-		self.url = 'http://192.168.0.75/api/job'
+		self.url = self.pi_host + '/api/job'
 		self.body = {
 			"action": "resume",
 			"command": "pause",

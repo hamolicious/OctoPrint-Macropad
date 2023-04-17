@@ -16,7 +16,7 @@ headers = {
 }
 while True:
 	try:
-		with requests.get('http://192.168.0.75/api/server', headers=headers) as r:
+		with requests.get(constants.PI_HOSTNAME + '/api/server', headers=headers) as r:
 			data = r.content
 			if r.status_code == 200:
 				break

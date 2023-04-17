@@ -8,7 +8,7 @@ class OffOnEnd(MacroActionBase):
 	def __init__(self) -> None:
 		super().__init__()
 
-		self.url = 'http://192.168.0.75/api/settings'
+		self.url = self.pi_host + '/api/settings'
 		self.state = False
 
 	def init(self) -> None:

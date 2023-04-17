@@ -7,7 +7,7 @@ class Home(MacroActionBase):
 	def __init__(self) -> None:
 		super().__init__()
 
-		self.url = 'http://192.168.0.75/api/printer/printhead'
+		self.url = self.pi_host + '/api/printer/printhead'
 		self.body = {}
 
 	def activate(self) -> None:
