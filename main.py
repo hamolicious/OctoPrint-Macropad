@@ -7,7 +7,11 @@ import common_commands
 import constants
 from time import sleep, time
 from buttons import buttons
+from events import events
 
+if events.get('on_start') is not None:
+	event_task = events.get('on_start')
+	event_task.get('target')(*event_task.get('args'))
 
 # Wait for OctoPrint to start
 headers = {
@@ -30,6 +34,10 @@ common_commands.send_gcode_commands(f'M117 MacroPad Ready', 'M300 P100 S100')
 
 # Begin
 logging.info('Starting')
+if events.get('on_connect') is not None:
+	event_task = events.get('on_connect')
+	event_task.get('target')(*event_task.get('args'))
+
 while True:
 	try:
 		for b in buttons.values():
@@ -53,6 +61,9 @@ while True:
 
 	except Exception as e:
 		logging.error(f'ERR: {e}')
+		if events.get('on_error') is not None:
+			event_task = events.get('on_error')
+			event_task.get('target')(*event_task.get('args'))
 		continue
 
 	button_press_sum = sum([int(b.get('button').is_pressed) for b in buttons.values()])

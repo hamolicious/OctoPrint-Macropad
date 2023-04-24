@@ -23,6 +23,10 @@ class OffOnEnd(MacroActionBase):
 
 		logging.info(f'Current State: {self.state}')
 
+	def set_state(self, enabled: bool) -> None:
+		self.state = True
+		self.activate()
+
 	def activate(self) -> None:
 		state = not self.state
 		logging.info(f'Setting State: {state}')
