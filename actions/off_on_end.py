@@ -23,11 +23,11 @@ class OffOnEnd(MacroActionBase):
 
 		logging.info(f'Current State: {self.state}')
 
-	def set_state(self, enabled: bool) -> None:
+	def set_state(self, enabled: bool, silent=False) -> None:
 		self.state = True
-		self.activate()
+		self.activate(silent)
 
-	def activate(self) -> None:
+	def activate(self, silent=False) -> None:
 		state = not self.state
 		logging.info(f'Setting State: {state}')
 
@@ -43,8 +43,10 @@ class OffOnEnd(MacroActionBase):
 
 		with requests.post(self.url, json=self.body, headers=self.headers) as r:
 			pass
+
 		self.do_toggle()
-		self.send_lcd_command()
+		if not silent:
+			self.send_lcd_command()
 
 	def do_toggle(self) -> None:
 		self.state = not self.state
