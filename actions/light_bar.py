@@ -8,7 +8,9 @@ class LightBar(MacroActionBase):
 		super().__init__()
 
 		self.url = self.pi_host + '/api/plugin/gpiocontrol'
-		self.toggle = ['turnGpioOn', 'turnGpioOff']
+		self.ON_STATE = 'turnGpioOn'
+		self.OFF_STATE = 'turnGpioOff'
+		self.current_state = None
 		self.body = {
 			'id': 0,
 			'command': 'turnGpioOn',
@@ -20,16 +22,19 @@ class LightBar(MacroActionBase):
 
 	def get_current_state(self) -> None:
 		with requests.get(self.url, json=self.body, headers=self.headers) as r:
-			data = r.text[2:2:]
+			data = r.json()[0].lower()
 
-		if data == 'on'  and self.toggle[0] != 'turnGpioOn'  : self.do_toggle()
-		if data == 'off' and self.toggle[0] != 'turnGpioOff' : self.do_toggle()
-
-		logging.info(f'Current State: {data}')
+		self.current_state = self.ON_STATE if data == 'on' else self.OFF_STATE
 
 	def activate(self) -> None:
-		state = 'ON' if self.body.get('command') == 'turnGpioOn' else 'OFF'
-		logging.info(f'Setting State: {state}')
+		self.get_current_state()
+
+		if self.current_state == self.ON_STATE:
+			self.current_state = self.OFF_STATE
+		else:
+			self.current_state = self.ON_STATE
+
+		self.body['command'] = self.current_state
 
 		with requests.post(self.url, json=self.body, headers=self.headers) as r:
 			pass
