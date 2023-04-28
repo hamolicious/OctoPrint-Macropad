@@ -7,12 +7,11 @@ class Home(MacroActionBase):
 		super().__init__()
 
 		self.url = '/api/printer/printhead'
-		self.body = {}
-
-	def activate(self) -> None:
 		self.body = {
 			'command': 'home',
 			'axes': [ 'x', 'y', 'z' ],
 		}
+
+	def activate(self) -> None:
 		self.post_request()
 		self.log('Homing')
