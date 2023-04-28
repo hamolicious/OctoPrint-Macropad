@@ -7,7 +7,7 @@ class Home(MacroActionBase):
 	def __init__(self) -> None:
 		super().__init__()
 
-		self.url = self.pi_host + '/api/printer/printhead'
+		self.url = '/api/printer/printhead'
 		self.body = {}
 
 	def activate(self) -> None:
@@ -15,5 +15,4 @@ class Home(MacroActionBase):
 			'command': 'home',
 			'axes': [ 'x', 'y', 'z' ],
 		}
-		with requests.post(self.url, json=self.body, headers=self.headers) as r:
-			print(r.content)
+		self.post_request()

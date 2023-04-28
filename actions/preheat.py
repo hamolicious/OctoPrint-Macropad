@@ -7,7 +7,7 @@ class PreHeat(MacroActionBase):
 	def __init__(self) -> None:
 		super().__init__()
 
-		self.url = self.pi_host + '/api/printer/'
+		self.url = '/api/printer/'
 		self.body = {}
 
 	def activate(self) -> None:
@@ -15,8 +15,7 @@ class PreHeat(MacroActionBase):
 			"target": 60,
 			"command": "target"
 		}
-		with requests.post(self.url + 'bed', json=self.body, headers=self.headers) as r:
-			pass
+		self.post_request(url=self.url + 'bed')
 
 		self.body = {
 			"targets": {
@@ -24,5 +23,4 @@ class PreHeat(MacroActionBase):
 			},
 			"command": "target"
 		}
-		with requests.post(self.url + 'tool', json=self.body, headers=self.headers) as r:
-			pass
+		self.post_request(url=self.url + 'tool')
