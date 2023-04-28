@@ -15,9 +15,6 @@ class MacroActionBase:
 		}
 		self.pi_host = constants.PI_HOSTNAME
 
-	def init(self) -> None:
-		...
-
 	def get_current_state(self) -> None:
 		...
 
