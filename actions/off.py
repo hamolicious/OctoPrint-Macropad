@@ -1,6 +1,5 @@
 from .base import MacroActionBase
 import common_commands
-import logging
 import requests
 
 
@@ -17,3 +16,4 @@ class Off(MacroActionBase):
 			"command": "turnOff"
 		}
 		self.post_request()
+		self.log('Shutting down printer')

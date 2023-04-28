@@ -1,6 +1,5 @@
 from .base import MacroActionBase
 import common_commands
-import logging
 import requests
 
 
@@ -10,10 +9,12 @@ class Purge(MacroActionBase):
 
 		self.url = '/api/printer/tool'
 		self.body = {}
+		self.purge_amount = 50
 
 	def activate(self) -> None:
 		self.body ={
-			"amount": 50,
+			"amount": self.purge_amount,
 			"command": "extrude"
 		}
 		self.post_request()
+		self.log(f'Purging {self.purge_amount}mm')

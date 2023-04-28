@@ -1,5 +1,4 @@
 from .base import MacroActionBase
-import logging
 import requests
 from common_commands.send_gcode_commands import send_gcode_commands
 
@@ -16,7 +15,7 @@ class OffOnEnd(MacroActionBase):
 
 		self.state = data.get('plugins').get('TpLinkAutoShutdown').get('smartPlug').get('auto')
 
-		logging.info(f'Current State: {self.state}')
+		self.log(f'Current State: {self.state}')
 
 	def set_state(self, enabled: bool, silent=False) -> None:
 		self.state = not enabled
@@ -36,6 +35,7 @@ class OffOnEnd(MacroActionBase):
 			}
 		}
 
+		self.log(f'Setting State: {not self.state}')
 		self.post_request()
 		self.do_toggle()
 		if not silent:

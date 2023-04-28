@@ -1,5 +1,4 @@
 from .base import MacroActionBase
-import logging
 import requests
 
 
@@ -15,4 +14,5 @@ class Resume(MacroActionBase):
 
 	def activate(self) -> None:
 		self.post_request()
+		self.log('Resuming')
 

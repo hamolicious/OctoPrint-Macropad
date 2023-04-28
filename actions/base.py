@@ -15,6 +15,9 @@ class MacroActionBase:
 		}
 		self.pi_host = constants.PI_HOSTNAME
 
+	def log(self, data: str):
+		logging.info(f'[{self.__class__.__name__.upper()}] {data}')
+
 	def get_current_state(self) -> None:
 		...
 
@@ -27,7 +30,10 @@ class MacroActionBase:
 		if body is None : body = self.body
 
 		with requests.post(full_url, json=body, headers=headers) as r:
-			return (r.status_code, r.json())
+			try:
+				return (r.status_code, r.json())
+			except:
+				return (r.status_code, r.content)
 
 	def get_request(self, body:dict=None, headers:dict=None, url:str=None) -> tuple:
 		full_url = parse.urljoin(self.pi_host, (url if url is not None else self.url))
@@ -35,4 +41,7 @@ class MacroActionBase:
 		if body is None : body = self.body
 
 		with requests.get(full_url, json=body, headers=headers) as r:
-			return (r.status_code, r.json())
+			try:
+				return (r.status_code, r.json())
+			except:
+				return (r.status_code, r.content)

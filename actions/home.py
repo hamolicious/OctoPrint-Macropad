@@ -1,5 +1,4 @@
 from .base import MacroActionBase
-import logging
 import requests
 
 
@@ -16,3 +15,4 @@ class Home(MacroActionBase):
 			'axes': [ 'x', 'y', 'z' ],
 		}
 		self.post_request()
+		self.log('Homing')

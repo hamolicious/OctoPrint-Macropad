@@ -1,5 +1,4 @@
 from .base import MacroActionBase
-import logging
 import requests
 
 
@@ -10,17 +9,22 @@ class PreHeat(MacroActionBase):
 		self.url = '/api/printer/'
 		self.body = {}
 
+		self.tool_temp = 200
+		self.bed_temp = 60
+
 	def activate(self) -> None:
 		self.body = {
-			"target": 60,
+			"target": self.bed_temp,
 			"command": "target"
 		}
 		self.post_request(url=self.url + 'bed')
+		self.log(f'Heating bed to {self.bed_temp}C')
 
 		self.body = {
 			"targets": {
-				"tool0": 200
+				"tool0": self.tool_temp
 			},
 			"command": "target"
 		}
 		self.post_request(url=self.url + 'tool')
+		self.log(f'Heating extruder to {self.tool_temp}C')
