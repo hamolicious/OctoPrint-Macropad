@@ -1,5 +1,4 @@
 from .base import MacroActionBase
-import requests
 from common_commands.send_gcode_commands import send_gcode_commands
 
 

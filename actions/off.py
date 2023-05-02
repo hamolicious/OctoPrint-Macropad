@@ -1,6 +1,4 @@
 from .base import MacroActionBase
-import common_commands
-import requests
 
 
 class Off(MacroActionBase):

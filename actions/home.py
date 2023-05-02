@@ -1,5 +1,4 @@
 from .base import MacroActionBase
-import requests
 
 
 class Home(MacroActionBase):
