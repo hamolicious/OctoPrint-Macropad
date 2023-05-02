@@ -15,7 +15,7 @@ buttons = {
     'light_and_x': {
 		'button': Button(4),
 		'on_click': actions.LightBar(),
-		'on_hold': None,
+		'on_hold': actions.MotorsOff(),
 	},
     'off_on_end_and_off': {
 		'button': Button(27),
